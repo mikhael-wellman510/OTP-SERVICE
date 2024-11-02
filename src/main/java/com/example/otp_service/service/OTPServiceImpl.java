@@ -40,6 +40,7 @@ public class OTPServiceImpl implements OTPService{
                 .build();
        TempOTP save = tempOTPRepositori.save(tempOTP);
 
+        System.out.println("Sukses panggil service OTP " + save);
        return ResponseCheckDTO.builder()
                .id(save.getId())
                .email(save.getEmail())

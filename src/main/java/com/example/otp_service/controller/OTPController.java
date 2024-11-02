@@ -17,8 +17,10 @@ public class OTPController {
     private final OTPService otpService;
 
     @PostMapping("/request")
-    public ResponseEntity<?> requestOTP(@RequestBody RegisterCheckDTO registerCheckDTO){
+    public ResponseEntity<ResponseCheckDTO> requestOTP(@RequestBody RegisterCheckDTO registerCheckDTO){
       ResponseCheckDTO responseCheckDTO = otpService.requestOTP(registerCheckDTO);
+
+        System.out.println("Hasil nya: "  + responseCheckDTO);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(responseCheckDTO);
     }
