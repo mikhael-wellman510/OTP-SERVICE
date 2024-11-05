@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 
@@ -18,12 +19,20 @@ public class RedisConfig {
     @Value("${spring.redis.port}")
     private Integer redisPort;
 
+    @Value("${spring.redis.channel-name}")
+    private String redisChannelName;
+
     @Bean
     public LettuceConnectionFactory redisConnectionFactory(){
         RedisStandaloneConfiguration redisConfig = new RedisStandaloneConfiguration(redisHost,redisPort);
         System.out.println(redisHost);
         System.out.println(redisPort);
         return new LettuceConnectionFactory(redisConfig);
+    }
+
+    @Bean
+    public ChannelTopic channelTopic(){
+        return new ChannelTopic(redisChannelName);
     }
 
     @Bean
